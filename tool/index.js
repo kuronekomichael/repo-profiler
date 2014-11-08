@@ -36,6 +36,10 @@ function subscribe(repos, cb) {
         var pullRequests = [];
         results.forEach(function(list) {
             list.forEach(function(pullRequest) {
+                if (!pullRequest.user) {
+                    // user情報が無い=退会済みユーザのPRは除外する
+                    return;
+                }
                 pullRequests.push(pullRequest);
 
                 data.pullRequests.push({

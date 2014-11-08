@@ -1,3 +1,10 @@
 body {
     margin: 0 1em;
 }
+
+.copyright {
+    text-align: center;
+    color: gray;
+    font-size: .8em;
+    margin-bottom: 1em;
+}

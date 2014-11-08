@@ -17,23 +17,13 @@
     <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/handlebars-v2.0.0.js"></script>
     <script src="javascripts/index.js"></script>
-    <style type="text/css">
-    body {
-        margin: 0 1em;
-    }
-    .copyright {
-        text-align: center;
-        color: gray;
-        font-size: .8em;
-        margin-bottom: 1em;
-    }
-   </style>
+
     <script id="tab-template" type="text/x-handlebars-template">
         <li><a id="tab-{{label}}" role="tab" href="#tab-body-{{label}}" class="js-tab" data-label="{{label}}" data-toggle="tab">{{label}}</a></li>
     </script>
 
     <script id="tab-body-template" type="text/x-handlebars-template">
-        <div role="tabpanel" class="tab-pane" id="tab-body-{{label}}">
+        <div role="tabpanel" class="tab-pane" id="tab-body-{{label}}" data-loading="false">
             <h3><i class="glyphicon glyphicon-user"></i> Most PullRequest Person</h3>
             <div class="js-mpp"></div>
             <hr/>
