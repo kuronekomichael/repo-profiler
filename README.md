@@ -1,6 +1,10 @@
  repo-profiler
 ==============
 
+## GitHub Pages
+
+see http://kuronekomichael.github.io/repo-profiler/
+
 ## Pre-Requirements
 
 see [tool/README.md](tool/README.md)
