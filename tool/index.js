@@ -59,6 +59,7 @@ function subscribe(repos, cb) {
                         return;
                     }
                     comments.forEach(function(comment) {
+                        comment.pr_user = pullRequest.user.login;
                         comment.repo_name = pullRequest.base.repo.full_name;
                     });
                     onFulfilled(comments);
@@ -68,6 +69,11 @@ function subscribe(repos, cb) {
     }).then(function(results) {
         results.forEach(function(comments) {
             comments.forEach(function(comment) {
+                // PullRequest起票者自身がコメントしたものはカウントしない
+                if (comment.user.login === comment.pr_user) {
+                    console.log('[ignore]'.red, 'PR同一ユーザ除外', comment.pr_user);
+                    return;
+                }
                 data.comments.push({
                     id: comment.id,                 // Comment Identifier
                     user: comment.user.login,       // コメンター
