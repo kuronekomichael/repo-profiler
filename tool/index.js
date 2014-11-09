@@ -71,7 +71,6 @@ function subscribe(repos, cb) {
             comments.forEach(function(comment) {
                 // PullRequest起票者自身がコメントしたものはカウントしない
                 if (comment.user.login === comment.pr_user) {
-                    console.log('[ignore]'.red, 'PR同一ユーザ除外', comment.pr_user);
                     return;
                 }
                 data.comments.push({
