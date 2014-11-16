@@ -20,14 +20,15 @@ GitHubAPI.prototype.setAuth = function(user, token) {
 
 GitHubAPI.prototype.getPullRequests = function(repoName, cb) {
     //this.getPullRequestsWithStatus(repoName, 'all', cb);
+    var that = this;
     var pulls = [];
-    this.getPullRequestsWithStatus(repoName, 'open', function(err, openPulls) {
+    that.getPullRequestsWithStatus(repoName, 'open', function(err, openPulls) {
         if (err) {
             cb(err)
             return;
         }
         Array.prototype.push.apply(pulls, openPulls);
-        this.getPullRequestsWithStatus(repoName, 'closed', function(err, closedPulls) {
+        that.getPullRequestsWithStatus(repoName, 'closed', function(err, closedPulls) {
             if (err) {
                 cb(err)
                 return;
