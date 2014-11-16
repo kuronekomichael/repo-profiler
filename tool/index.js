@@ -37,7 +37,7 @@ function subscribe(repos, cb) {
         results.forEach(function(list) {
             list.forEach(function(pullRequest) {
                 if (!pullRequest.user) {
-                    // user情報が無い=退会済みユーザのPRは除外する
+                    // user情報が無い＝退会済みユーザのPRは除外する
                     return;
                 }
                 pullRequests.push(pullRequest);

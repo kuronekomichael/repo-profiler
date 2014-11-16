@@ -19,6 +19,27 @@ GitHubAPI.prototype.setAuth = function(user, token) {
 }
 
 GitHubAPI.prototype.getPullRequests = function(repoName, cb) {
+    //this.getPullRequestsWithStatus(repoName, 'all', cb);
+    var pulls = [];
+    this.getPullRequestsWithStatus(repoName, 'open', function(err, openPulls) {
+        if (err) {
+            cb(err)
+            return;
+        }
+        Array.prototype.push.apply(pulls, openPulls);
+        this.getPullRequestsWithStatus(repoName, 'closed', function(err, closedPulls) {
+            if (err) {
+                cb(err)
+                return;
+            }
+            Array.prototype.push.apply(pulls, closedPulls);
+            cb(err, pulls);
+        });
+    });
+};
+
+
+GitHubAPI.prototype.getPullRequestsWithStatus = function(repoName, status, cb) {
     var that = this;
 
     var pulls = [];
@@ -28,7 +49,7 @@ GitHubAPI.prototype.getPullRequests = function(repoName, cb) {
             qs: {
                 page: page,
                 per_page: 100,
-                state: 'all'
+                state: status
             },
             auth: that.auth,
             headers: that.headers
