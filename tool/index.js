@@ -22,6 +22,7 @@ function subscribe(repos, cb) {
     }
 
     Promise.all(repos.map(function(repo) {
+        // get all PullRequests
         return new Promise(function(onFulfilled, onRejected) {
             api.getPullRequests(repo, function(err, json) {
                 if (err) {
@@ -32,7 +33,7 @@ function subscribe(repos, cb) {
             });
         });
     })).then(function(results) {
-        // create PullRequest's List
+        // create a list of PullRequest
         var pullRequests = [];
         results.forEach(function(list) {
             list.forEach(function(pullRequest) {
@@ -51,6 +52,7 @@ function subscribe(repos, cb) {
             });
         });
 
+        // get all comments
         return Promise.all(pullRequests.map(function(pullRequest) {
             return new Promise(function(onFulfilled, onRejected) {
                 api.getComments(pullRequest.comments_url, function(err, comments) {

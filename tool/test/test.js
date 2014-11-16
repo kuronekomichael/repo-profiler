@@ -4,6 +4,60 @@ var colors = require('colors');
 var Promise = require('bluebird');
 var fs = require('fs');
 
+describe('GitHubAPI all comment', function() {
+
+    before(function(){
+        this.api = new GitHubAPI();
+        if (process.env.GITHUB_HOST) {
+            this.api.setHost(process.env.GITHUB_HOST);
+        }
+        if (process.env.GITHUB_USER && process.env.GITHUB_TOKEN) {
+            this.api.setAuth(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
+        }
+    });
+
+    it('getPullRequests', function(done) {
+        var that = this;
+
+        expect(that.api).to.be.ok;
+
+        that.api.getPullRequests('SFTtech/openage', function(err, pulls) {
+            expect(err).to.be.null;
+            expect(pulls).to.be.ok;
+            //expect(pulls.length).to.be.equals(41);
+            //that.pr = pulls[10];
+            pulls.forEach(function(pr) {
+                if (pr.number === 150) {
+                    that.pr = pr;
+                }
+                //console.log(pr);
+            });
+            done();
+        });
+    });
+
+    it('getComments', function(done) {
+        var that = this;
+
+        expect(this.api).to.be.ok;
+        var total = 0;
+
+        that.api.getComments(that.pr.comments_url, function(err, comments) {
+            expect(err).to.be.null;
+            expect(comments).to.be.ok;
+            //console.log(comments.length);
+            total += comments.length;
+            that.api.getComments(that.pr.review_comments_url, function(err, reviewComments) {
+                //console.log(reviewComments.length);
+                total += reviewComments.length;
+
+                expect(total).to.be.equals(31);
+                done();
+            });
+        });
+    });
+});
+
 describe('GitHubAPI', function() {
 
     before(function(){
