@@ -7,13 +7,8 @@ var fs = require('fs');
 describe('GitHubAPI all comment', function() {
 
     before(function(){
-        this.api = new GitHubAPI();
-        if (process.env.GITHUB_HOST) {
-            this.api.setHost(process.env.GITHUB_HOST);
-        }
-        if (process.env.GITHUB_USER && process.env.GITHUB_TOKEN) {
-            this.api.setAuth(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
-        }
+        this.api = new GitHubAPI(process.env.GITHUB_HOST);
+        this.api.authenticate(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
     });
 
     it('getPullRequests', function(done) {
@@ -61,13 +56,8 @@ describe('GitHubAPI all comment', function() {
 describe('GitHubAPI', function() {
 
     before(function(){
-        this.api = new GitHubAPI();
-        if (process.env.GITHUB_HOST) {
-            this.api.setHost(process.env.GITHUB_HOST);
-        }
-        if (process.env.GITHUB_USER && process.env.GITHUB_TOKEN) {
-            this.api.setAuth(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
-        }
+        this.api = new GitHubAPI(process.env.GITHUB_HOST);
+        this.api.authenticate(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
     });
 
     it('getPullRequests', function(done) {
@@ -100,13 +90,8 @@ describe('GitHubAPI', function() {
 describe('GitHubAPI-Promise', function() {
 
     before(function(){
-        this.api = new GitHubAPI();
-        if (process.env.GITHUB_HOST) {
-            this.api.setHost(process.env.GITHUB_HOST);
-        }
-        if (process.env.GITHUB_USER && process.env.GITHUB_TOKEN) {
-            this.api.setAuth(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
-        }
+        this.api = new GitHubAPI(process.env.GITHUB_HOST);
+        this.api.authenticate(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
     });
 
     it('getPullRequestsAndComments', function(done) {

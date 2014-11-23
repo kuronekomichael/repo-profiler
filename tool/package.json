@@ -13,6 +13,7 @@
     "bluebird": "^2.3.10",
     "colors": "^1.0.3",
     "fs-extra": "^0.12.0",
+    "node-github-client": "0.0.1",
     "request": "^2.47.0"
   },
   "devDependencies": {

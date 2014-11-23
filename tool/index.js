@@ -1,4 +1,4 @@
-var GitHubAPI = require('./lib/githubApi');
+var GitHubAPI = require('node-github-client');
 var adjudicator = require('./lib/adjudicator');
 var colors = require('colors');
 var Promise = require('bluebird');
@@ -12,14 +12,8 @@ function subscribe(repos, cb) {
         comments: []
     };
 
-    var api = new GitHubAPI();
-
-    if (process.env.GITHUB_HOST) {
-        api.setHost(process.env.GITHUB_HOST);
-    }
-    if (process.env.GITHUB_USER && process.env.GITHUB_TOKEN) {
-        api.setAuth(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
-    }
+    var api = new GitHubAPI(process.env.GITHUB_HOST ? process.env.GITHUB_HOST : undefined);
+    api.authenticate(process.env.GITHUB_USER, process.env.GITHUB_TOKEN);
 
     Promise.all(repos.map(function(repo) {
         // get all PullRequests
